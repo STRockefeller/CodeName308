@@ -38,6 +38,11 @@ namespace CodeName308.Views
             this.pbPlayer2 = new System.Windows.Forms.PictureBox();
             this.btnTrust = new System.Windows.Forms.Button();
             this.btnBetray = new System.Windows.Forms.Button();
+            this.lblPlayer1Score = new System.Windows.Forms.Label();
+            this.lblPlayer2Score = new System.Windows.Forms.Label();
+            this.lblTurn = new System.Windows.Forms.Label();
+            this.lblPlayer2Name = new System.Windows.Forms.Label();
+            this.lblPlayer1Name = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer2)).BeginInit();
             this.SuspendLayout();
@@ -50,7 +55,7 @@ namespace CodeName308.Views
             this.tbxMessage.Name = "tbxMessage";
             this.tbxMessage.ReadOnly = true;
             this.tbxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbxMessage.Size = new System.Drawing.Size(767, 382);
+            this.tbxMessage.Size = new System.Drawing.Size(757, 382);
             this.tbxMessage.TabIndex = 1;
             this.tbxMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbxMessage_KeyDown);
             // 
@@ -115,6 +120,7 @@ namespace CodeName308.Views
             this.btnTrust.TabIndex = 8;
             this.btnTrust.Text = "Trust";
             this.btnTrust.UseVisualStyleBackColor = true;
+            this.btnTrust.Click += new System.EventHandler(this.btnTrust_Click);
             // 
             // btnBetray
             // 
@@ -124,6 +130,62 @@ namespace CodeName308.Views
             this.btnBetray.TabIndex = 9;
             this.btnBetray.Text = "Betray";
             this.btnBetray.UseVisualStyleBackColor = true;
+            this.btnBetray.Click += new System.EventHandler(this.btnBetray_Click);
+            // 
+            // lblPlayer1Score
+            // 
+            this.lblPlayer1Score.AutoSize = true;
+            this.lblPlayer1Score.Font = new System.Drawing.Font("微軟正黑體", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPlayer1Score.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblPlayer1Score.Location = new System.Drawing.Point(190, 149);
+            this.lblPlayer1Score.Name = "lblPlayer1Score";
+            this.lblPlayer1Score.Size = new System.Drawing.Size(226, 42);
+            this.lblPlayer1Score.TabIndex = 10;
+            this.lblPlayer1Score.Text = "Player1Score";
+            // 
+            // lblPlayer2Score
+            // 
+            this.lblPlayer2Score.AutoSize = true;
+            this.lblPlayer2Score.Font = new System.Drawing.Font("微軟正黑體", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPlayer2Score.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblPlayer2Score.Location = new System.Drawing.Point(644, 149);
+            this.lblPlayer2Score.Name = "lblPlayer2Score";
+            this.lblPlayer2Score.Size = new System.Drawing.Size(226, 42);
+            this.lblPlayer2Score.TabIndex = 11;
+            this.lblPlayer2Score.Text = "Player2Score";
+            // 
+            // lblTurn
+            // 
+            this.lblTurn.AutoSize = true;
+            this.lblTurn.Font = new System.Drawing.Font("微軟正黑體", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTurn.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblTurn.Location = new System.Drawing.Point(339, 81);
+            this.lblTurn.Name = "lblTurn";
+            this.lblTurn.Size = new System.Drawing.Size(92, 42);
+            this.lblTurn.TabIndex = 12;
+            this.lblTurn.Text = "Turn";
+            // 
+            // lblPlayer2Name
+            // 
+            this.lblPlayer2Name.AutoSize = true;
+            this.lblPlayer2Name.Font = new System.Drawing.Font("微軟正黑體", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPlayer2Name.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblPlayer2Name.Location = new System.Drawing.Point(472, 149);
+            this.lblPlayer2Name.Name = "lblPlayer2Name";
+            this.lblPlayer2Name.Size = new System.Drawing.Size(114, 42);
+            this.lblPlayer2Name.TabIndex = 13;
+            this.lblPlayer2Name.Text = "Name";
+            // 
+            // lblPlayer1Name
+            // 
+            this.lblPlayer1Name.AutoSize = true;
+            this.lblPlayer1Name.Font = new System.Drawing.Font("微軟正黑體", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPlayer1Name.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblPlayer1Name.Location = new System.Drawing.Point(0, 149);
+            this.lblPlayer1Name.Name = "lblPlayer1Name";
+            this.lblPlayer1Name.Size = new System.Drawing.Size(114, 42);
+            this.lblPlayer1Name.TabIndex = 14;
+            this.lblPlayer1Name.Text = "Name";
             // 
             // FrmTrustGame
             // 
@@ -131,6 +193,11 @@ namespace CodeName308.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(792, 603);
+            this.Controls.Add(this.lblPlayer1Name);
+            this.Controls.Add(this.lblPlayer2Name);
+            this.Controls.Add(this.lblTurn);
+            this.Controls.Add(this.lblPlayer2Score);
+            this.Controls.Add(this.lblPlayer1Score);
             this.Controls.Add(this.btnBetray);
             this.Controls.Add(this.btnTrust);
             this.Controls.Add(this.pbPlayer2);
@@ -161,5 +228,10 @@ namespace CodeName308.Views
         private System.Windows.Forms.PictureBox pbPlayer2;
         private System.Windows.Forms.Button btnTrust;
         private System.Windows.Forms.Button btnBetray;
+        private System.Windows.Forms.Label lblPlayer1Score;
+        private System.Windows.Forms.Label lblPlayer2Score;
+        private System.Windows.Forms.Label lblTurn;
+        private System.Windows.Forms.Label lblPlayer2Name;
+        private System.Windows.Forms.Label lblPlayer1Name;
     }
 }

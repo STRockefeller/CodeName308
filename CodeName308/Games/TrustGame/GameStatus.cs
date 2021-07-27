@@ -20,6 +20,8 @@ namespace CodeName308.Games.TrustGame
         {
             this.Player1 = Player1;
             this.Player2 = Player2;
+            Player1.PlayerNoInGame = false;
+            Player2.PlayerNoInGame = true;
             Phase = EnumGamePhase.Match;
         }
     }

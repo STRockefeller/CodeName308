@@ -9,8 +9,7 @@ namespace CodeName308.Games.TrustGame
     public enum EnumTrustGameStrategy
     {
         Cooperate,
-        Betray,
-        Undefine
+        Betray
     }
 
     public enum EnumTrustGameStrategyResult

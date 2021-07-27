@@ -25,7 +25,11 @@ namespace CodeName308.Characters.TrustGameCharaters
 
         public override GameStatus ResultPhaseEffect(GameStatus status)
         {
-            return base.ResultPhaseEffect(status);
+            if (GameLog.Last() != EnumTrustGameStrategyResult.BC) { return status; }
+            if (PlayerNoInGame) { status.Player2.Score++; }
+            else { status.Player1.Score++; }
+            return status;
         }
+        public override EnumTrustGameStrategy NPCStrategy() => PickStrategy(EnumTrustGameStrategy.Betray);
     }
 }

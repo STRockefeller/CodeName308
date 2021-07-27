@@ -14,5 +14,4 @@ namespace CodeName308.Characters
         /// </summary>
         /// <returns></returns>
         public TrustGameCharatersBase GetTrustGameCharaters();
-    }
-}
+    }}

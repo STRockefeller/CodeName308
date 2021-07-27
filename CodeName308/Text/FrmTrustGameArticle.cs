@@ -24,7 +24,9 @@ namespace CodeName308.Text
                 { ("base",0), Read("FrmTrustGame_0.con") },
                 { ("tutorial", 0),  Read("FrmTrustGame_Tutorial_0.con")},
                 { ("tutorial", 1),  Read("FrmTrustGame_Tutorial_1.con")},
-                { ("tutorial", 2),  Read("FrmTrustGame_Tutorial_1.con")}
+                { ("tutorial", 2),  Read("FrmTrustGame_Tutorial_2.con")},
+                { ("tutorial", 3),  Read("FrmTrustGame_Tutorial_3.con")},
+                { ("tutorial", 4),  Read("FrmTrustGame_Tutorial_4.con")}
             };
         }
 
