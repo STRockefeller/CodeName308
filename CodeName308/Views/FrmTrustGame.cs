@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using CodeName308.Text;
 using CodeName308.Games.TrustGame;
 using CodeName308.Characters.TrustGameCharaters;
+using CodeName308.Characters;
 
 namespace CodeName308.Views
 {
@@ -57,28 +58,25 @@ namespace CodeName308.Views
         private void btnTutorial_Click(object sender, EventArgs e)
         {
             btnGameSetting.Visible = false;
-            btnSandBox.Visible = false;
-            btnStory.Visible = false;
+            btnGameStart.Visible = false;
+            btnCharaters.Visible = false;
             btnTutorial.Visible = false;
             tbxMessage.Text = article.Show(("tutorial", 0));
         }
 
         private void tbxMessage_KeyDown(object sender, KeyEventArgs e)
         {
-            (string, int) key = article.GetKey();
-            switch (key.Item1)
-            {
-                case "tutorial":
-                    TutorialMessageHandler(key.Item2, e);
-                    break;
-
-                default:
-                    break;
-            }
-
-            #region 遊戲中動作
-
-            if (!isGaming) { return; }
+            
+            if (isGaming) { KeyDownInGame(e); }
+            else { KeyDownNotInGame(e); }
+            
+        }
+        /// <summary>
+        /// 遊戲中動作
+        /// </summary>
+        /// <param name="e"></param>
+        private void KeyDownInGame(KeyEventArgs e)
+        {
             if (game.CurrentPhase() != EnumGamePhase.Strategy) { return; }
             switch (e.KeyValue)
             {
@@ -93,8 +91,23 @@ namespace CodeName308.Views
                 default:
                     break;
             }
+        }
+        /// <summary>
+        /// 遊戲外動作
+        /// </summary>
+        /// <param name="e"></param>
+        private void KeyDownNotInGame(KeyEventArgs e)
+        {
+            (string, int) key = article.GetKey();
+            switch (key.Item1)
+            {
+                case "tutorial":
+                    TutorialMessageHandler(key.Item2, e);
+                    break;
 
-            #endregion 遊戲中動作
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -115,9 +128,68 @@ namespace CodeName308.Views
                     if (keyId == 2)
                         TutorialGame01();
                     else if (keyId == 3)
-                        TutorialGame02();
+                        TutorialGameStandard(2,new User_TG(),new Betrayer_TG()); //第二場教學賽局，對手為Betrayer
+                    else if (keyId == 4)
+                        TutorialGameStandard(3, new Betrayer_TG(), new King80_TG()); //第三場教學賽局，對手為King80
+                    else if (keyId == 5)
+                        TutorialGameStandard(4, new King80_TG(), new Anti80_TG()); //第四場教學賽局，對手為Anti80
+                    else if (keyId == 6)
+                        TutorialGameStandard(5, new Anti80_TG(), new LionKing_TG()); //第五場教學賽局，對手為LionKing
+                    else if (keyId == 7)
+                        TutorialGameStandard(6, new LionKing_TG(), new Chaos_TG()); //第六場教學賽局，對手為Chaos
+                    else if (keyId == 8)
+                        TutorialGameStandard(7, new Chaos_TG(), new NiceMan_TG()); //第七場教學賽局，對手為NiceMan
+                    else if (keyId == 9)
+                        TutorialGameStandard(8, new NiceMan_TG(), new Conspirator_TG()); //第八場教學賽局，對手為Conspirator
                     break;
-
+                case 38:
+                    FrmCharacterDetail detail;
+                    switch (keyId)
+                    {
+                        case 3:
+                            detail = new FrmCharacterDetail(new User());
+                            detail.Show();
+                            break;
+                        case 4:
+                            detail = new FrmCharacterDetail(new Betrayer());
+                            detail.Show();
+                            break;
+                        case 5:
+                            detail = new FrmCharacterDetail(new King80());
+                            detail.Show();
+                            break;
+                        case 6:
+                            detail = new FrmCharacterDetail(new Anti80());
+                            detail.Show();
+                            break;
+                        case 7:
+                            detail = new FrmCharacterDetail(new LionKing());
+                            detail.Show();
+                            break;
+                        case 8:
+                            detail = new FrmCharacterDetail(new Chaos());
+                            detail.Show();
+                            break;
+                        case 9:
+                            detail = new FrmCharacterDetail(new NiceMan());
+                            detail.Show();
+                            break;
+                        case 10:
+                            detail = new FrmCharacterDetail(new Conspirator());
+                            detail.Show();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 40:
+                    if (keyId >= 7)
+                    {
+                        FrmTrustGame trustGame = new FrmTrustGame();
+                        trustGame.Show();
+                        this.Dispose(false);
+                    }    
+                    break;
                 default:
                     break;
             }
@@ -140,6 +212,7 @@ namespace CodeName308.Views
             GameStatus status = new GameStatus(playerManagement.Players[0], playerManagement.Players[1]);
             game = new TrustGame(status);
             game.GameType = EnumTrustGameType.Tutorial01;
+            SetImage();
             game.ToPhase(EnumGamePhase.Match);
             game.ToPhase(EnumGamePhase.Strategy);
             ShowScore();
@@ -155,20 +228,24 @@ namespace CodeName308.Views
             btnTrust.Visible = true;
         }
         /// <summary>
-        /// 第二場教學賽局，對手是Betrayer
+        /// 標準教學賽局
         /// </summary>
-        private void TutorialGame02()
+        /// <param name="count">場次</param>
+        /// <param name="Player1"></param>
+        /// <param name="Player2"></param>
+        private void TutorialGameStandard(int count,TrustGameCharatersBase Player1,TrustGameCharatersBase Player2)
         {
             isGaming = true;
             gameCount = 1;
             setting = new GameSetting();
             setting.UseDefault();
             playerManagement = new PlayerManagement(setting);
-            playerManagement.AddPlayer(new User_TG());
-            playerManagement.AddNPC(new Betrayer_TG());
+            playerManagement.AddPlayer(Player1);
+            playerManagement.AddNPC(Player2);
             GameStatus status = new GameStatus(playerManagement.Players[0], playerManagement.Players[1]);
             game = new TrustGame(status);
-            game.GameType = EnumTrustGameType.Tutorial02;
+            game.GameType = (EnumTrustGameType)count;
+            SetImage();
             game.ToPhase(EnumGamePhase.Match);
             game.ToPhase(EnumGamePhase.Strategy);
             ShowScore();
@@ -176,24 +253,22 @@ namespace CodeName308.Views
             lblPlayer2Name.Text = game.GetName().Item2;
             lblPlayer1Name.Visible = true;
             lblPlayer2Name.Visible = true;
-            tbxMessage.Text = "歡迎進入教學模式第二關" +
-                "\r\n您的第二個對手已經就位" +
+            tbxMessage.Text = $"歡迎進入教學模式第{count}關" +
+                $"\r\n您的第{count}個對手已經就位" +
                 "\r\n現在請選擇您的策略" +
                 "\r\n您也可以透過[方向鍵上]選擇合作/[方向鍵下]選擇背叛";
             btnBetray.Visible = true;
             btnTrust.Visible = true;
         }
-        private void EndGame_Tutorial01()
-        {
-            isGaming = false;
-            tbxMessage.Text = article.Show(("tutorial", 3));
-        }
-        private void EndGame_Tutorial02()
-        {
-            isGaming = false;
-            tbxMessage.Text = article.Show(("tutorial", 4));
-        }
 
+        private void SetImage()
+        {
+            pbPlayer1.ImageLocation = game.GetImagePath().Item1;
+            pbPlayer2.ImageLocation = game.GetImagePath().Item2;
+        }
+        /// <summary>
+        /// 同一個對手重複進行賽局
+        /// </summary>
         private void GameLoop()
         {
             game.ToPhase(EnumGamePhase.Strategy);
@@ -202,13 +277,32 @@ namespace CodeName308.Views
 
         private void EndGame()
         {
+            isGaming = false;
             switch (game.GameType)
             {
                 case EnumTrustGameType.Tutorial01:
-                    EndGame_Tutorial01();
+                    tbxMessage.Text = article.Show(("tutorial", 3));
                     break;
                 case EnumTrustGameType.Tutorial02:
-                    EndGame_Tutorial02();
+                    tbxMessage.Text = article.Show(("tutorial", 4));
+                    break;
+                case EnumTrustGameType.Tutorial03:
+                    tbxMessage.Text = article.Show(("tutorial", 5));
+                    break;
+                case EnumTrustGameType.Tutorial04:
+                    tbxMessage.Text = article.Show(("tutorial", 6));
+                    break;
+                case EnumTrustGameType.Tutorial05:
+                    tbxMessage.Text = article.Show(("tutorial", 7));
+                    break;
+                case EnumTrustGameType.Tutorial06:
+                    tbxMessage.Text = article.Show(("tutorial", 8));
+                    break;
+                case EnumTrustGameType.Tutorial07:
+                    tbxMessage.Text = article.Show(("tutorial", 9));
+                    break;
+                case EnumTrustGameType.Tutorial08:
+                    tbxMessage.Text = article.Show(("tutorial", 10));
                     break;
                 default:
                     break;
@@ -250,6 +344,7 @@ namespace CodeName308.Views
             tbxMessage.Text += npcStrategy == EnumTrustGameStrategy.Cooperate ?
                 "\r\n您的對手選擇與您合作" : "\r\n您的對手選擇背叛";
             game.GameResult(setting);
+            SetImage();
             game.ToPhase(EnumGamePhase.Result);
             game.ToPhase(EnumGamePhase.End);
             var score = game.ShowScore();

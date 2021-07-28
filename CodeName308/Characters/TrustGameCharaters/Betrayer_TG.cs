@@ -20,7 +20,8 @@ namespace CodeName308.Characters.TrustGameCharaters
             Name = StorageHandler.NameStorage.Betrayer;
         }
 
-        public override string Description() => $"{Name}在達成[背叛-合作]時獲得[+1]分數" +
+        public override string Description() => $"{Name}天生反骨喜歡與別人做對" +
+            $"\r\n特性：{Name}在達成[背叛-合作]時獲得[+1]分數" +
             $"\r\nNPC邏輯：全部選擇背叛";
 
         public override GameStatus ResultPhaseEffect(GameStatus status)

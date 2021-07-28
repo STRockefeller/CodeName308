@@ -142,11 +142,21 @@ namespace CodeName308.Games.TrustGame
         /// </summary>
         /// <returns></returns>
         public (string, string) GetName() => (_status.Player1.Name, _status.Player2.HideName ? "您的對手" : _status.Player2.Name);
+        /// <summary>
+        /// 取得圖片位址
+        /// </summary>
+        public (string, string) GetImagePath() => (_status.Player1.GetImagePath(), _status.Player2.GetImagePath());
     }
     public enum EnumTrustGameType
     {
-        Tutorial01,
-        Tutorial02,
+        Tutorial01 = 1,
+        Tutorial02 = 2,
+        Tutorial03 = 3,
+        Tutorial04 = 4,
+        Tutorial05 = 5,
+        Tutorial06 = 6,
+        Tutorial07 = 7,
+        Tutorial08 = 8,
         Normal
     }
 }

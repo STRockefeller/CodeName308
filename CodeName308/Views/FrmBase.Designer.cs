@@ -40,6 +40,7 @@ namespace CodeName308
             // tbxMessage
             // 
             this.tbxMessage.BackColor = System.Drawing.Color.PowderBlue;
+            this.tbxMessage.Font = new System.Drawing.Font("微軟正黑體", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.tbxMessage.Location = new System.Drawing.Point(10, 209);
             this.tbxMessage.Multiline = true;
             this.tbxMessage.Name = "tbxMessage";

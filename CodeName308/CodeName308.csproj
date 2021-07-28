@@ -26,6 +26,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\Characters\TG_CharacterLose_Default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Characters\TG_CharacterWin_Default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Characters\TG_CharaterStandard_Default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Text\FrmBase\FrmBase_0.con">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -48,6 +57,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Text\FrmTrustGame\FrmTrustGame_Tutorial_4.con">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Text\FrmTrustGame\FrmTrustGame_Tutorial_5.con">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Text\FrmTrustGame\FrmTrustGame_Tutorial_6.con">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Text\FrmTrustGame\FrmTrustGame_Tutorial_7.con">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Text\FrmTrustGame\FrmTrustGame_Tutorial_8.con">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -4,11 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CodeName308.Games.TrustGame;
+using System.IO;
 
 namespace CodeName308.Characters.TrustGameCharaters
 {
     public class TrustGameCharatersBase
     {
+        #region 圖片連結
+
+        private static string _commonPath = Directory.GetCurrentDirectory() + "\\Assets\\Characters\\";
+        protected string StandardPose = _commonPath + "TG_CharaterStandard_Default.png";
+        protected string WinPose = _commonPath + "TG_CharacterWin_Default.png";
+        protected string LosePose = _commonPath + "TG_CharacterLose_Default.png";
+
+        #endregion 圖片連結
+
         #region 由類別初始化屬性
 
         public string Name;
@@ -47,6 +57,7 @@ namespace CodeName308.Characters.TrustGameCharaters
         /// 現在的決策，由PickStrategy方法定義
         /// </summary>
         public EnumTrustGameStrategy CurrentStrategy;
+
         /// <summary>
         /// 開始遊戲時設定，0為P1 / 1為P2
         /// </summary>
@@ -113,6 +124,22 @@ namespace CodeName308.Characters.TrustGameCharaters
         {
             Random random = new Random();
             return random.Next() % 2 == 1 ? PickStrategy(EnumTrustGameStrategy.Cooperate) : PickStrategy(EnumTrustGameStrategy.Betray);
+        }
+        /// <summary>
+        /// 回傳圖片位址，有特殊能力影響得分時再override
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetImagePath()
+        {
+            if (GameLog.Count == 0) { return StandardPose; }
+            switch (GameLog.Last())
+            {
+                case EnumTrustGameStrategyResult.CC:
+                case EnumTrustGameStrategyResult.BC:
+                    return WinPose;
+                default:
+                    return LosePose;
+            }
         }
     }
 }

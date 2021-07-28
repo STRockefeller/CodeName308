@@ -16,7 +16,7 @@ namespace CodeName308.Storage
         public string Betrayer;
         public string King80;
         public string Anti80;
-        public string Random;
+        public string Chaos;
         public string NiceMan;
         public string Conspirator;
         private string _jsonPpath;
@@ -34,7 +34,7 @@ namespace CodeName308.Storage
             Betrayer = "貝古仔";
             King80 = "80王";
             Anti80 = "反80小天使";
-            Random = "亂來仔";
+            Chaos = "亂來仔";
             NiceMan = "老好人";
             Conspirator = "心機仔";
         }

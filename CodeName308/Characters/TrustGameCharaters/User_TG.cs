@@ -19,6 +19,7 @@ namespace CodeName308.Characters.TrustGameCharaters
             Name = StorageHandler.NameStorage.User;
         }
 
-        public override string Description() => $"{Name}是一個平凡人沒有任何特殊能力";
+        public override string Description() => $"{Name}是一個平凡人沒有任何特殊能力" +
+            $"\r\nNPC邏輯:選擇合作或背叛的機率各為50%";
     }
 }

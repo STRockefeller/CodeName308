@@ -31,8 +31,8 @@ namespace CodeName308.Views
         {
             this.tbxMessage = new System.Windows.Forms.TextBox();
             this.btnTutorial = new System.Windows.Forms.Button();
-            this.btnStory = new System.Windows.Forms.Button();
-            this.btnSandBox = new System.Windows.Forms.Button();
+            this.btnCharaters = new System.Windows.Forms.Button();
+            this.btnGameStart = new System.Windows.Forms.Button();
             this.btnGameSetting = new System.Windows.Forms.Button();
             this.pbPlayer1 = new System.Windows.Forms.PictureBox();
             this.pbPlayer2 = new System.Windows.Forms.PictureBox();
@@ -50,6 +50,7 @@ namespace CodeName308.Views
             // tbxMessage
             // 
             this.tbxMessage.BackColor = System.Drawing.Color.PowderBlue;
+            this.tbxMessage.Font = new System.Drawing.Font("微軟正黑體", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.tbxMessage.Location = new System.Drawing.Point(13, 209);
             this.tbxMessage.Multiline = true;
             this.tbxMessage.Name = "tbxMessage";
@@ -69,23 +70,23 @@ namespace CodeName308.Views
             this.btnTutorial.UseVisualStyleBackColor = true;
             this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
             // 
-            // btnStory
+            // btnCharaters
             // 
-            this.btnStory.Location = new System.Drawing.Point(12, 62);
-            this.btnStory.Name = "btnStory";
-            this.btnStory.Size = new System.Drawing.Size(154, 29);
-            this.btnStory.TabIndex = 3;
-            this.btnStory.Text = "Story Mode";
-            this.btnStory.UseVisualStyleBackColor = true;
+            this.btnCharaters.Location = new System.Drawing.Point(13, 117);
+            this.btnCharaters.Name = "btnCharaters";
+            this.btnCharaters.Size = new System.Drawing.Size(154, 29);
+            this.btnCharaters.TabIndex = 3;
+            this.btnCharaters.Text = "Characters";
+            this.btnCharaters.UseVisualStyleBackColor = true;
             // 
-            // btnSandBox
+            // btnGameStart
             // 
-            this.btnSandBox.Location = new System.Drawing.Point(13, 112);
-            this.btnSandBox.Name = "btnSandBox";
-            this.btnSandBox.Size = new System.Drawing.Size(153, 29);
-            this.btnSandBox.TabIndex = 4;
-            this.btnSandBox.Text = "Sand Box Mode";
-            this.btnSandBox.UseVisualStyleBackColor = true;
+            this.btnGameStart.Location = new System.Drawing.Point(14, 65);
+            this.btnGameStart.Name = "btnGameStart";
+            this.btnGameStart.Size = new System.Drawing.Size(153, 29);
+            this.btnGameStart.TabIndex = 4;
+            this.btnGameStart.Text = "Game Start";
+            this.btnGameStart.UseVisualStyleBackColor = true;
             // 
             // btnGameSetting
             // 
@@ -202,8 +203,8 @@ namespace CodeName308.Views
             this.Controls.Add(this.btnTrust);
             this.Controls.Add(this.pbPlayer2);
             this.Controls.Add(this.btnGameSetting);
-            this.Controls.Add(this.btnSandBox);
-            this.Controls.Add(this.btnStory);
+            this.Controls.Add(this.btnGameStart);
+            this.Controls.Add(this.btnCharaters);
             this.Controls.Add(this.btnTutorial);
             this.Controls.Add(this.tbxMessage);
             this.Controls.Add(this.pbPlayer1);
@@ -221,8 +222,8 @@ namespace CodeName308.Views
 
         private System.Windows.Forms.TextBox tbxMessage;
         private System.Windows.Forms.Button btnTutorial;
-        private System.Windows.Forms.Button btnStory;
-        private System.Windows.Forms.Button btnSandBox;
+        private System.Windows.Forms.Button btnCharaters;
+        private System.Windows.Forms.Button btnGameStart;
         private System.Windows.Forms.Button btnGameSetting;
         private System.Windows.Forms.PictureBox pbPlayer1;
         private System.Windows.Forms.PictureBox pbPlayer2;

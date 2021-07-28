@@ -21,7 +21,7 @@ namespace CodeName308.Views
             tbxKing80.Text = StorageHandler.NameStorage.King80;
             tbxLionKing.Text = StorageHandler.NameStorage.LionKing;
             tbxNiceMan.Text = StorageHandler.NameStorage.NiceMan;
-            tbxRandom.Text = StorageHandler.NameStorage.Random;
+            tbxRandom.Text = StorageHandler.NameStorage.Chaos;
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -33,7 +33,7 @@ namespace CodeName308.Views
             StorageHandler.NameStorage.King80 = tbxKing80.Text;
             StorageHandler.NameStorage.LionKing = tbxLionKing.Text;
             StorageHandler.NameStorage.NiceMan = tbxNiceMan.Text;
-            StorageHandler.NameStorage.Random = tbxRandom.Text;
+            StorageHandler.NameStorage.Chaos = tbxRandom.Text;
             StorageHandler.NameStorage.JsonSerialize();
             this.Hide();
         }
