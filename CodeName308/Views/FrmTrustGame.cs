@@ -20,6 +20,10 @@ namespace CodeName308.Views
         private PlayerManagement playerManagement;
         private TrustGame game;
         private GameSetting setting;
+        private GameHandler gameHandler;
+
+        //Standard mode player index for data uploading
+        private (int, int) playerIndex;
 
         /// <summary>
         /// 遊戲中判斷
@@ -53,24 +57,15 @@ namespace CodeName308.Views
             lblPlayer1Name.Visible = false;
             lblPlayer2Name.Visible = false;
             lblTurn.Visible = false;
-        }
-
-        private void btnTutorial_Click(object sender, EventArgs e)
-        {
-            btnGameSetting.Visible = false;
-            btnGameStart.Visible = false;
-            btnCharaters.Visible = false;
-            btnTutorial.Visible = false;
-            tbxMessage.Text = article.Show(("tutorial", 0));
+            lblScoreRank.Text = "";
         }
 
         private void tbxMessage_KeyDown(object sender, KeyEventArgs e)
         {
-            
             if (isGaming) { KeyDownInGame(e); }
             else { KeyDownNotInGame(e); }
-            
         }
+
         /// <summary>
         /// 遊戲中動作
         /// </summary>
@@ -92,6 +87,7 @@ namespace CodeName308.Views
                     break;
             }
         }
+
         /// <summary>
         /// 遊戲外動作
         /// </summary>
@@ -103,6 +99,33 @@ namespace CodeName308.Views
             {
                 case "tutorial":
                     TutorialMessageHandler(key.Item2, e);
+                    break;
+
+                case "standard":
+                    StandardMessageHandler(key.Item2, e);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 處理Standard文章顯示部分
+        /// </summary>
+        /// <param name="e"></param>
+        private void StandardMessageHandler(int keyId, KeyEventArgs e)
+        {
+            switch (e.KeyValue)
+            {
+                case 39:
+                    if (keyId == 0)
+                        GameStandardStart();
+                    break;
+
+                case 40:
+                    if (keyId == 1)
+                        RestartPage();
                     break;
 
                 default:
@@ -128,7 +151,7 @@ namespace CodeName308.Views
                     if (keyId == 2)
                         TutorialGame01();
                     else if (keyId == 3)
-                        TutorialGameStandard(2,new User_TG(),new Betrayer_TG()); //第二場教學賽局，對手為Betrayer
+                        TutorialGameStandard(2, new User_TG(), new Betrayer_TG()); //第二場教學賽局，對手為Betrayer
                     else if (keyId == 4)
                         TutorialGameStandard(3, new Betrayer_TG(), new King80_TG()); //第三場教學賽局，對手為King80
                     else if (keyId == 5)
@@ -142,6 +165,7 @@ namespace CodeName308.Views
                     else if (keyId == 9)
                         TutorialGameStandard(8, new NiceMan_TG(), new Conspirator_TG()); //第八場教學賽局，對手為Conspirator
                     break;
+
                 case 38:
                     FrmCharacterDetail detail;
                     switch (keyId)
@@ -150,49 +174,65 @@ namespace CodeName308.Views
                             detail = new FrmCharacterDetail(new User());
                             detail.Show();
                             break;
+
                         case 4:
                             detail = new FrmCharacterDetail(new Betrayer());
                             detail.Show();
                             break;
+
                         case 5:
                             detail = new FrmCharacterDetail(new King80());
                             detail.Show();
                             break;
+
                         case 6:
                             detail = new FrmCharacterDetail(new Anti80());
                             detail.Show();
                             break;
+
                         case 7:
                             detail = new FrmCharacterDetail(new LionKing());
                             detail.Show();
                             break;
+
                         case 8:
                             detail = new FrmCharacterDetail(new Chaos());
                             detail.Show();
                             break;
+
                         case 9:
                             detail = new FrmCharacterDetail(new NiceMan());
                             detail.Show();
                             break;
+
                         case 10:
                             detail = new FrmCharacterDetail(new Conspirator());
                             detail.Show();
                             break;
+
                         default:
                             break;
                     }
                     break;
+
                 case 40:
                     if (keyId >= 7)
-                    {
-                        FrmTrustGame trustGame = new FrmTrustGame();
-                        trustGame.Show();
-                        this.Dispose(false);
-                    }    
+                        RestartPage();
                     break;
+
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// 重新開啟表單
+        /// </summary>
+        private void RestartPage()
+        {
+            FrmTrustGame trustGame = new FrmTrustGame();
+            trustGame.Show();
+            this.Dispose(false);
         }
 
         /// <summary>
@@ -227,13 +267,14 @@ namespace CodeName308.Views
             btnBetray.Visible = true;
             btnTrust.Visible = true;
         }
+
         /// <summary>
         /// 標準教學賽局
         /// </summary>
         /// <param name="count">場次</param>
         /// <param name="Player1"></param>
         /// <param name="Player2"></param>
-        private void TutorialGameStandard(int count,TrustGameCharatersBase Player1,TrustGameCharatersBase Player2)
+        private void TutorialGameStandard(int count, TrustGameCharatersBase Player1, TrustGameCharatersBase Player2)
         {
             isGaming = true;
             gameCount = 1;
@@ -261,11 +302,79 @@ namespace CodeName308.Views
             btnTrust.Visible = true;
         }
 
+        /// <summary>
+        /// 標準多人車輪賽局
+        /// </summary>
+        private void GameStandard()
+        {
+            lblScoreRank.Visible = false;
+            tbxMessage.Size = new Size(475, 382);
+            setting = new GameSetting().JsonDeserialize();
+            playerManagement = new PlayerManagement(setting);
+            gameHandler = new GameHandler(setting.PlayerCount);
+            IEnumerable<TrustGameCharatersBase> players = RandomPlayerGenerator.Generate(setting.PlayerCount);
+            playerManagement.AddPlayer(players.First());
+            players = players.Skip(1);
+            foreach (TrustGameCharatersBase player in players)
+            {
+                playerManagement.AddNPC(player);
+            }
+            ShowScoreRank();
+            GameStandardStart();
+        }
+
+        private void GameStandardStart()
+        {
+            playerIndex = gameHandler.Next();
+            //遞迴結束條件
+            if (playerIndex.Item1 == -1)
+            {
+                EndGameAll();
+                return;
+            }
+            //若有被淘汰的玩家則直接下一場
+            if (playerManagement.Players[playerIndex.Item1].IsDefeated || playerManagement.Players[playerIndex.Item2].IsDefeated)
+                GameStandardStart();
+            GameStatus status = new GameStatus(playerManagement.Players[playerIndex.Item1],
+                playerManagement.Players[playerIndex.Item2]);
+            gameCount = 1;
+            isGaming = true;
+            game = new TrustGame(status);
+            game.GameType = EnumTrustGameType.Normal;
+            SetImage();
+            game.ToPhase(EnumGamePhase.Match);
+            game.ToPhase(EnumGamePhase.Strategy);
+            ShowScore();
+            lblPlayer1Name.Text = game.GetName().Item1;
+            lblPlayer2Name.Text = game.GetName().Item2;
+            lblPlayer1Name.Visible = true;
+            lblPlayer2Name.Visible = true;
+            if (!playerManagement.Players[playerIndex.Item1].Playable)
+            {
+                NPCGame();
+                return;
+            }
+            tbxMessage.Text =
+                "\r\n現在請選擇您的策略" +
+                "\r\n您也可以透過[方向鍵上]選擇合作/[方向鍵下]選擇背叛";
+            btnBetray.Visible = true;
+            btnTrust.Visible = true;
+        }
+
+        /// <summary>
+        /// 全部遊戲結束
+        /// </summary>
+        private void EndGameAll()
+        {
+            tbxMessage.Text = article.Show(("standard", 1));
+        }
+
         private void SetImage()
         {
             pbPlayer1.ImageLocation = game.GetImagePath().Item1;
             pbPlayer2.ImageLocation = game.GetImagePath().Item2;
         }
+
         /// <summary>
         /// 同一個對手重複進行賽局
         /// </summary>
@@ -283,27 +392,42 @@ namespace CodeName308.Views
                 case EnumTrustGameType.Tutorial01:
                     tbxMessage.Text = article.Show(("tutorial", 3));
                     break;
+
                 case EnumTrustGameType.Tutorial02:
                     tbxMessage.Text = article.Show(("tutorial", 4));
                     break;
+
                 case EnumTrustGameType.Tutorial03:
                     tbxMessage.Text = article.Show(("tutorial", 5));
                     break;
+
                 case EnumTrustGameType.Tutorial04:
                     tbxMessage.Text = article.Show(("tutorial", 6));
                     break;
+
                 case EnumTrustGameType.Tutorial05:
                     tbxMessage.Text = article.Show(("tutorial", 7));
                     break;
+
                 case EnumTrustGameType.Tutorial06:
                     tbxMessage.Text = article.Show(("tutorial", 8));
                     break;
+
                 case EnumTrustGameType.Tutorial07:
                     tbxMessage.Text = article.Show(("tutorial", 9));
                     break;
+
                 case EnumTrustGameType.Tutorial08:
                     tbxMessage.Text = article.Show(("tutorial", 10));
                     break;
+
+                case EnumTrustGameType.Normal:
+                    playerManagement.UpdatePlayer(playerIndex.Item1, game.GetPlayers().Item1);
+                    playerManagement.UpdatePlayer(playerIndex.Item2, game.GetPlayers().Item2);
+                    ShowScoreRank();
+                    tbxMessage.Text = article.Show(("standard", 0));
+                    break;
+
                 default:
                     break;
             }
@@ -359,6 +483,32 @@ namespace CodeName308.Views
                 EndGame();
         }
 
+        /// <summary>
+        /// 只有NPC的賽局
+        /// </summary>
+        private void NPCGame()
+        {
+            //NPC開始對戰後才看的到排行
+            lblScoreRank.Visible = true;
+            game.SetPlayer1NPCStrategy();
+            game.SetPlayer2NPCStrategy();
+            game.GameResult(setting);
+            game.ToPhase(EnumGamePhase.Result);
+            game.ToPhase(EnumGamePhase.End);
+            ShowScoreRank();
+            if (gameCount < setting.GameCount)
+            {
+                gameCount++;
+                game.ToPhase(EnumGamePhase.Strategy);
+                NPCGame();
+            }
+            else
+                EndGame();
+        }
+
+        /// <summary>
+        /// 更新分數顯示
+        /// </summary>
         private void ShowScore()
         {
             var score = game.ShowScore();
@@ -370,8 +520,70 @@ namespace CodeName308.Views
             lblTurn.Text = gameCount.ToString();
         }
 
+        /// <summary>
+        /// 排行榜分數刷新
+        /// </summary>
+        private void ShowScoreRank()
+        {
+            lblScoreRank.Text = "";
+            List<(string, int)> scoreItems = new List<(string, int)>();
+            foreach (var player in playerManagement.Players)
+                scoreItems.Add((player.Name, player.Score));
+            var sortedItems = scoreItems.OrderByDescending(i => i.Item2);
+            foreach (var item in sortedItems)
+                lblScoreRank.Text += $"{item.Item1} : {item.Item2}\r\n";
+        }
+
         private void btnTrust_Click(object sender, EventArgs e) => SelectTrust();
 
         private void btnBetray_Click(object sender, EventArgs e) => SelectBetray();
+
+        private void btnTutorial_Click(object sender, EventArgs e)
+        {
+            btnGameSetting.Visible = false;
+            btnGameStart.Visible = false;
+            btnCharaters.Visible = false;
+            btnTutorial.Visible = false;
+            tbxMessage.Text = article.Show(("tutorial", 0));
+        }
+
+        private void btnGameStart_Click(object sender, EventArgs e)
+        {
+            btnGameSetting.Visible = false;
+            btnGameStart.Visible = false;
+            btnCharaters.Visible = false;
+            btnTutorial.Visible = false;
+            GameStandard();
+        }
+
+        private void btnGameSettingConfirm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                setting.ErrorRate = Convert.ToDouble(tbxErrorRate.Text);
+                setting.GameCount = Convert.ToInt32(tbxGameCount.Text);
+                setting.PlayerCount = Convert.ToInt32(tbxPlayerCount.Text);
+                setting.InitScore = Convert.ToInt32(tbxInitScore.Text);
+                setting.JsonSerialize();
+            }
+            catch (Exception ex)
+            {
+                tbxMessage.Text = "賽局設定寫入錯誤，原因:" + ex.Message;
+            }
+            finally
+            {
+                panelGameSetting.Visible = false;
+            }
+        }
+
+        private void btnGameSetting_Click(object sender, EventArgs e)
+        {
+            setting = new GameSetting().JsonDeserialize();
+            tbxErrorRate.Text = setting.ErrorRate.ToString();
+            tbxGameCount.Text = setting.GameCount.ToString();
+            tbxPlayerCount.Text = setting.PlayerCount.ToString();
+            tbxInitScore.Text = setting.InitScore.ToString();
+            panelGameSetting.Visible = true;
+        }
     }
 }

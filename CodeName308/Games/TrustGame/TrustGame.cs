@@ -21,6 +21,7 @@ namespace CodeName308.Games.TrustGame
             _status.Player1.GameLog = new List<EnumTrustGameStrategyResult>();
             _status.Player2.GameLog = new List<EnumTrustGameStrategyResult>();
         }
+
         public EnumGamePhase CurrentPhase() => _status.Phase;
 
         /// <summary>
@@ -100,6 +101,7 @@ namespace CodeName308.Games.TrustGame
                 return EnumTrustGameStrategyResult.BC;
             return result;
         }
+
         /// <summary>
         /// 指定Player1策略
         /// </summary>
@@ -111,6 +113,7 @@ namespace CodeName308.Games.TrustGame
             bool isWrong = _status.Player1.IsWrong;
             return (isWrong, result);
         }
+
         /// <summary>
         /// 指定Player2策略
         /// </summary>
@@ -122,31 +125,45 @@ namespace CodeName308.Games.TrustGame
             bool isWrong = _status.Player2.IsWrong;
             return (isWrong, result);
         }
+
         /// <summary>
         /// 指定Player1NPC策略
         /// </summary>
         /// <returns></returns>
         public EnumTrustGameStrategy SetPlayer1NPCStrategy() => _status.Player1.NPCStrategy();
+
         /// <summary>
         /// 指定Player2NPC策略
         /// </summary>
         /// <returns></returns>
         public EnumTrustGameStrategy SetPlayer2NPCStrategy() => _status.Player2.NPCStrategy();
+
         /// <summary>
         /// 取得當前分數
         /// </summary>
         /// <returns></returns>
         public (int, int) ShowScore() => (_status.Player1.Score, _status.Player2.Score);
+
         /// <summary>
         /// 取得玩家名字
         /// </summary>
         /// <returns></returns>
-        public (string, string) GetName() => (_status.Player1.Name, _status.Player2.HideName ? "您的對手" : _status.Player2.Name);
+        public (string, string) GetName() => (_status.Player1.HideName ? "匿名" : _status.Player1.Name,
+            _status.Player2.HideName ? "匿名" : _status.Player2.Name);
+
         /// <summary>
         /// 取得圖片位址
         /// </summary>
         public (string, string) GetImagePath() => (_status.Player1.GetImagePath(), _status.Player2.GetImagePath());
+
+        /// <summary>
+        /// 取得角色資料(用於更新資訊)
+        /// </summary>
+        /// <returns></returns>
+        public (Characters.TrustGameCharaters.TrustGameCharatersBase, Characters.TrustGameCharaters.TrustGameCharatersBase) GetPlayers() =>
+            (_status.Player1, _status.Player2);
     }
+
     public enum EnumTrustGameType
     {
         Tutorial01 = 1,

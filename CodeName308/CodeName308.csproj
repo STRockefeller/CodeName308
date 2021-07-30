@@ -44,6 +44,12 @@
     <None Update="Text\FrmTrustGame\FrmTrustGame_0.con">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Text\FrmTrustGame\FrmTrustGame_Standard_0.con">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Text\FrmTrustGame\FrmTrustGame_Standard_1.con">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Text\FrmTrustGame\FrmTrustGame_Tutorial_0.con">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

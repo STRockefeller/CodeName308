@@ -43,8 +43,20 @@ namespace CodeName308.Views
             this.lblTurn = new System.Windows.Forms.Label();
             this.lblPlayer2Name = new System.Windows.Forms.Label();
             this.lblPlayer1Name = new System.Windows.Forms.Label();
+            this.lblScoreRank = new System.Windows.Forms.Label();
+            this.panelGameSetting = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbxErrorRate = new System.Windows.Forms.TextBox();
+            this.tbxInitScore = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbxGameCount = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbxPlayerCount = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnGameSettingConfirm = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer2)).BeginInit();
+            this.panelGameSetting.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbxMessage
@@ -87,6 +99,7 @@ namespace CodeName308.Views
             this.btnGameStart.TabIndex = 4;
             this.btnGameStart.Text = "Game Start";
             this.btnGameStart.UseVisualStyleBackColor = true;
+            this.btnGameStart.Click += new System.EventHandler(this.btnGameStart_Click);
             // 
             // btnGameSetting
             // 
@@ -96,6 +109,7 @@ namespace CodeName308.Views
             this.btnGameSetting.TabIndex = 5;
             this.btnGameSetting.Text = "Game Setting";
             this.btnGameSetting.UseVisualStyleBackColor = true;
+            this.btnGameSetting.Click += new System.EventHandler(this.btnGameSetting_Click);
             // 
             // pbPlayer1
             // 
@@ -188,12 +202,116 @@ namespace CodeName308.Views
             this.lblPlayer1Name.TabIndex = 14;
             this.lblPlayer1Name.Text = "Name";
             // 
+            // lblScoreRank
+            // 
+            this.lblScoreRank.AutoSize = true;
+            this.lblScoreRank.Font = new System.Drawing.Font("微軟正黑體", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblScoreRank.Location = new System.Drawing.Point(513, 227);
+            this.lblScoreRank.Name = "lblScoreRank";
+            this.lblScoreRank.Size = new System.Drawing.Size(73, 22);
+            this.lblScoreRank.TabIndex = 15;
+            this.lblScoreRank.Text = "lblRank";
+            // 
+            // panelGameSetting
+            // 
+            this.panelGameSetting.BackColor = System.Drawing.Color.Moccasin;
+            this.panelGameSetting.Controls.Add(this.btnGameSettingConfirm);
+            this.panelGameSetting.Controls.Add(this.tbxPlayerCount);
+            this.panelGameSetting.Controls.Add(this.label4);
+            this.panelGameSetting.Controls.Add(this.tbxGameCount);
+            this.panelGameSetting.Controls.Add(this.label3);
+            this.panelGameSetting.Controls.Add(this.tbxInitScore);
+            this.panelGameSetting.Controls.Add(this.label2);
+            this.panelGameSetting.Controls.Add(this.tbxErrorRate);
+            this.panelGameSetting.Controls.Add(this.label1);
+            this.panelGameSetting.Location = new System.Drawing.Point(173, 12);
+            this.panelGameSetting.Name = "panelGameSetting";
+            this.panelGameSetting.Size = new System.Drawing.Size(369, 579);
+            this.panelGameSetting.TabIndex = 16;
+            this.panelGameSetting.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Error Rate";
+            // 
+            // tbxErrorRate
+            // 
+            this.tbxErrorRate.Location = new System.Drawing.Point(207, 20);
+            this.tbxErrorRate.Name = "tbxErrorRate";
+            this.tbxErrorRate.Size = new System.Drawing.Size(125, 27);
+            this.tbxErrorRate.TabIndex = 1;
+            // 
+            // tbxInitScore
+            // 
+            this.tbxInitScore.Location = new System.Drawing.Point(207, 89);
+            this.tbxInitScore.Name = "tbxInitScore";
+            this.tbxInitScore.Size = new System.Drawing.Size(125, 27);
+            this.tbxInitScore.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 92);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 19);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Initial Score";
+            // 
+            // tbxGameCount
+            // 
+            this.tbxGameCount.Location = new System.Drawing.Point(207, 158);
+            this.tbxGameCount.Name = "tbxGameCount";
+            this.tbxGameCount.Size = new System.Drawing.Size(125, 27);
+            this.tbxGameCount.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 161);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 19);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Turns per Game";
+            // 
+            // tbxPlayerCount
+            // 
+            this.tbxPlayerCount.Location = new System.Drawing.Point(207, 227);
+            this.tbxPlayerCount.Name = "tbxPlayerCount";
+            this.tbxPlayerCount.Size = new System.Drawing.Size(125, 27);
+            this.tbxPlayerCount.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 230);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(139, 19);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Number of Players";
+            // 
+            // btnGameSettingConfirm
+            // 
+            this.btnGameSettingConfirm.Location = new System.Drawing.Point(125, 531);
+            this.btnGameSettingConfirm.Name = "btnGameSettingConfirm";
+            this.btnGameSettingConfirm.Size = new System.Drawing.Size(94, 29);
+            this.btnGameSettingConfirm.TabIndex = 8;
+            this.btnGameSettingConfirm.Text = "Confirm";
+            this.btnGameSettingConfirm.UseVisualStyleBackColor = true;
+            this.btnGameSettingConfirm.Click += new System.EventHandler(this.btnGameSettingConfirm_Click);
+            // 
             // FrmTrustGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(792, 603);
+            this.Controls.Add(this.panelGameSetting);
+            this.Controls.Add(this.lblScoreRank);
             this.Controls.Add(this.lblPlayer1Name);
             this.Controls.Add(this.lblPlayer2Name);
             this.Controls.Add(this.lblTurn);
@@ -213,6 +331,8 @@ namespace CodeName308.Views
             this.Load += new System.EventHandler(this.FrmTrustGame_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer2)).EndInit();
+            this.panelGameSetting.ResumeLayout(false);
+            this.panelGameSetting.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -234,5 +354,16 @@ namespace CodeName308.Views
         private System.Windows.Forms.Label lblTurn;
         private System.Windows.Forms.Label lblPlayer2Name;
         private System.Windows.Forms.Label lblPlayer1Name;
+        private System.Windows.Forms.Label lblScoreRank;
+        private System.Windows.Forms.Panel panelGameSetting;
+        private System.Windows.Forms.TextBox tbxErrorRate;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbxPlayerCount;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbxGameCount;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbxInitScore;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnGameSettingConfirm;
     }
 }

@@ -32,7 +32,9 @@ namespace CodeName308.Text
                 { ("tutorial", 7),  Read("FrmTrustGame_Tutorial_7.con")},
                 { ("tutorial", 8),  Read("FrmTrustGame_Tutorial_8.con")},
                 { ("tutorial", 9),  Read("FrmTrustGame_Tutorial_8.con")},
-                { ("tutorial", 10),  Read("FrmTrustGame_Tutorial_8.con")}
+                { ("tutorial", 10),  Read("FrmTrustGame_Tutorial_8.con")},
+                { ("standard", 0),  Read("FrmTrustGame_Standard_0.con")},
+                { ("standard", 1),  Read("FrmTrustGame_Standard_1.con")}
 
             };
         }
